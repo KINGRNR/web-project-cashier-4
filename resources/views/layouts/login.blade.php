@@ -41,34 +41,70 @@
 </head>
 
 <body id="kt_body" class="app-blank">
-    <div class="d-flex flex-column flex-root" id="kt_app_root">
-
+    <div class="d-flex flex-column flex-root">
+        <!--begin::Authentication - Sign-in -->
         <div class="d-flex flex-column flex-lg-row flex-column-fluid">
-            <div class="d-flex flex-lg-row-fluid order-d-none order-lg-1 "
-            id="backgroundLogin" style="background-image: url(assets/media/jobhunt/meeting-scene.png); background-size: 784px 671px; background-repeat: no-repeat; background-position: right; flex-shrink: 0; background-color: white;">
-            <div class="d-flex flex-column flex-center py-7 py-lg-15 px-5 px-md-15 justify-content-end">
-
-                    <h1 class="d-none d-lg-block text-white fs-2qx fw-bolder text-center mb-7"></h1>
-                    <div class="d-none d-lg-block text-white fs-base text-center"></div>
+            <!--begin::Aside-->
+            <div class="d-flex flex-column flex-lg-row-auto w-xl-600px positon-xl-relative"
+                style="background-color: #F2C98A">
+                <!--begin::Wrapper-->
+                <div class="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-600px scroll-y">
+                    <!--begin::Content-->
+                    <div class="d-flex flex-row-fluid flex-column text-center p-10 pt-lg-20">
+                        <!--begin::Logo-->
+                        <a href="../../demo6/dist/index.html" class="py-9 mb-5">
+                            <img alt="Logo" src="assets/media/logos/logo-2.svg" class="h-60px" />
+                        </a>
+                        <!--end::Logo-->
+                        <!--begin::Title-->
+                        <h1 class="fw-bolder fs-2qx pb-5 pb-md-10" style="color: #986923;">Welcome to Metronic</h1>
+                        <!--end::Title-->
+                        <!--begin::Description-->
+                        <p class="fw-bold fs-2" style="color: #986923;">Discover Amazing Metronic
+                            <br />with great build tools
+                        </p>
+                        <!--end::Description-->
+                    </div>
+                    <!--end::Content-->
+                    <!--begin::Illustration-->
+                    <div class="d-flex flex-row-auto bgi-no-repeat bgi-position-x-center bgi-size-contain bgi-position-y-bottom min-h-100px min-h-lg-350px"
+                        style="background-image: url(assets/media/illustrations/sketchy-1/13.png"></div>
+                    <!--end::Illustration-->
                 </div>
+                <!--end::Wrapper-->
             </div>
-
-            <div class="d-flex flex-column flex-lg-row-xl w-lg-50 p-10 order-1 order-lg-2"
-                style="background-color: white;">
-                <div class="d-flex flex-center flex-column flex-lg-row-fluid">
-
-                    <div class="w-lg-500px p-10">
+            <!--end::Aside-->
+            <!--begin::Body-->
+            <div class="d-flex flex-column flex-lg-row-fluid py-10">
+                <!--begin::Content-->
+                <div class="d-flex flex-center flex-column flex-column-fluid">
+                    <!--begin::Wrapper-->
+                    <div class="w-lg-500px p-10 p-lg-15 mx-auto">
+                        <!--begin::Form-->
                         @yield('content')
 
                     </div>
-
+                    <!--end::Wrapper-->
                 </div>
-
-
+                <!--end::Content-->
+                <!--begin::Footer-->
+                <div class="d-flex flex-center flex-wrap fs-6 p-5 pb-0">
+                    <!--begin::Links-->
+                    {{-- <div class="d-flex flex-center fw-bold fs-6">
+                        <a href="https://keenthemes.com" class="text-muted text-hover-primary px-2"
+                            target="_blank">About</a>
+                        <a href="https://keenthemes.com/support" class="text-muted text-hover-primary px-2"
+                            target="_blank">Support</a>
+                        <a href="https://1.envato.market/EA4JP" class="text-muted text-hover-primary px-2"
+                            target="_blank">Purchase</a>
+                    </div> --}}
+                    <!--end::Links-->
+                </div>
+                <!--end::Footer-->
             </div>
-
+            <!--end::Body-->
         </div>
-
+        <!--end::Authentication - Sign-in-->
     </div>
 
 </body>
