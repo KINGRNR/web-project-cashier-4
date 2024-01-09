@@ -34,24 +34,30 @@ Route::controller(LoginWithGooglecontroller::class)->group(function () {
     Route::get('authorized/google/callback', 'handleGoogleCallback');
 });
 
+// Route::get('/', function () {
+
+//     if (Auth::user()) {
+//         return redirect('/dashboard');
+//     } else {
+//         return redirect('/login');
+//     }
+// });
 Route::get('/', function () {
+    return view('welcome');
+})->name('index');
 
-    if (Auth::user()) {
-        return redirect('/dashboard');
-    } else {
-        return redirect('/login');
-    }
-});
+// Route::get('/login', function () {
+//     return view('layouts.login');
+// })->name('login');
 
+Route::post('/main/getPage', [MainController::class, 'getPage']);
 
 Auth::routes();
 Route::middleware([loginCheck::class])->group(function () {
+
     // Route::get('/dashboard', [MainController::class, 'index'])->name('dashboard');
 
-    Route::post('/main/getPage', [MainController::class, 'getPage']);
-    Route::get('examples', [ExampleController::class, 'index'])->name('example.index');
-    Route::get('showallusers', [ListUserController::class, 'showall'])->name('listuser.showall');
-    // Route::get('companyjob', [ManageCompanyController::class, 'jobIndex'])->name('managecompany.jobIndex');
+    Route::get('examples', [ExampleController::class, 'index'])->name('example.index');    // Route::get('companyjob', [ManageCompanyController::class, 'jobIndex'])->name('managecompany.jobIndex');
     // Route::get('job', [::class, 'index'])->name('managejob.index');
     Route::get('log', [LogController::class, 'showLog'])->name('log.showLog');
     Route::get('notification', [NotificationController::class, 'index'])->name('notification.index');
@@ -64,21 +70,6 @@ Route::middleware([loginCheck::class])->group(function () {
     Route::controller(ExampleController::class)->group(function () {
         foreach (['show', 'create', 'update', 'delete', 'getData'] as $key => $value) {
             Route::post('/example/' . $value, $value);
-        }
-    });
-    Route::controller(ManageJobController::class)->group(function () {
-        foreach (['index', 'show', 'create', 'rejacc', 'update', 'delete', 'getData', 'detailJob', 'savesuspend', 'deleteUser'] as $key => $value) {
-            Route::post('/managejob/' . $value, $value);
-        }
-    });
-    Route::controller(ListuserController::class)->group(function () {
-        foreach (['index', 'show', 'create', 'update', 'delete', 'getData', 'detailJob', 'savesuspend', 'deleteUser'] as $key => $value) {
-            Route::post('/listuser/' . $value, $value);
-        }
-    });
-    Route::controller(ManageCompanyController::class)->group(function () {
-        foreach (['index', 'show', 'create', 'update', 'delete', 'getData', 'detailJob', 'jobIndex' ,'savesuspend', 'deleteUser','rejacc'] as $key => $value) {
-            Route::post('/managecompany/' . $value, $value);
         }
     });
     Route::controller(ConfigurationController::class)->group(function () {

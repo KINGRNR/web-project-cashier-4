@@ -57,7 +57,7 @@
 
         <div class="text-center">
 
-            <button type="submit" id="kt_sign_in_submit" class="btn btn-lg w-100 mb-4" style="background-color: #1B61AD">
+            <button type="submit" id="" class="btn btn-lg w-100 mb-4" style="background-color: #1B61AD">
                 <span class="indicator-label text-white">Sign In</span>
                 <span class="indicator-progress text-white">Please wait...
                     <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
