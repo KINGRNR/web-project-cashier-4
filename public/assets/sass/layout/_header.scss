@@ -7,41 +7,40 @@
 	.header {
 		display: flex;
 		justify-content: space-between;
-		align-items: stretch;
+		align-items: center;
 		position: relative;
 		z-index: 2;
-		height: get($header-config, desktop, default, height);
-		transition: left get($aside-config, transition-speed) ease;
+		height: get($header-config, default, height, desktop);
 
 		// Fixed header & sticky header modes
-		.header-fixed[data-kt-sticky-header="on"] & {
+		.header-fixed & {
 			position: fixed;
 			top: 0;
 			right: 0;
 			left: 0;
-			z-index: get($header-config, desktop, fixed, z-index);
-			background-color: get($header-config, desktop, fixed, bg-color);
-			box-shadow: get($header-config, desktop, fixed, box-shadow);
-			height: get($header-config, desktop, fixed, height);
+			z-index: get($header-config, fixed, z-index);
+			background-color: get($header-config, fixed, bg-color);
+			height: get($header-config, fixed, height, desktop);
 			padding: 0;
+
+			@if isDefaultSkin() {                
+				box-shadow: get($header-config, fixed, box-shadow);
+            }
 		}
 
-		// Aside fixed, aside secondary enabled and header sticky modes
-		.aside-fixed.aside-secondary-enabled[data-kt-sticky-header="on"] & {
+		// Fixed header and fixed toolbar modes
+		.header-fixed.toolbar-fixed & {
+			box-shadow: none;
+		}
+
+		// Aside default enabled, aside fixed & header sticky modes
+		.aside-enabled.aside-fixed.header-fixed & {
 			left: get($aside-config, width, desktop);
-			transition: left get($aside-config, transition-speed) ease;
 		}
 
-		// Aside fixed, aside secondary enabled and header sticky modes
-		.aside-fixed.aside-secondary-disabled[data-kt-sticky-header="on"] & {
-			left: get($aside-config, primary-width, desktop);
-			transition: left get($aside-config, transition-speed) ease;
-		}
-
-		// Aside fixed, aside secondary enabled,header sticky & aside minimize modes
-		.aside-fixed.aside-secondary-enabled[data-kt-sticky-header="on"][data-kt-aside-minimize="on"] & {
-			left: get($aside-config, primary-width, desktop);
-			transition: left get($aside-config, transition-speed) ease;
+		// Header menu
+		.header-menu {
+			display: flex;
 		}
 	}
 }
@@ -51,22 +50,36 @@
 	.header {
 		display: flex;
 		justify-content: space-between;
-		align-items: stretch;
-		height: get($header-config, tablet-and-mobile, default, height);
+		align-items: center;
+		height: get($header-config, default, height, tablet-and-mobile);
 		position: relative;
 		z-index: 3;
 
 		// Fixed header and header sticky modes
-		.header-tablet-and-mobile-fixed[data-kt-sticky-header="on"] & {
+		.header-tablet-and-mobile-fixed & {
 			position: fixed;
 			top: 0;
 			right: 0;
 			left: 0;
-			z-index: get($header-config, tablet-and-mobile, fixed, z-index);
-			height: get($header-config, tablet-and-mobile, fixed, height);
-			min-height: get($header-config, tablet-and-mobile, fixed, height);
-			background-color: get($header-config, tablet-and-mobile, fixed, bg-color);
-			box-shadow: get($header-config, tablet-and-mobile, fixed, box-shadow);
+			z-index: get($header-config, fixed, z-index);
+			height: get($header-config, fixed, height, tablet-and-mobile);
+			min-height: get($header-config, fixed, height, tablet-and-mobile);
+			background-color: get($header-config, fixed, bg-color);
+
+			@if isDefaultSkin() {         
+				box-shadow: get($header-config, fixed, box-shadow);
+            }
+		}
+
+		// Fixed header and fixed toolbar modes
+		.header-tablet-and-mobile-fixed.toolbar-tablet-and-mobile-fixed & {
+			box-shadow: none;
+		}
+
+		// Header menu
+		.header-menu {
+			display: none;
+			z-index: get($header-config, fixed, z-index) - 1;
 		}
 
 		// Page title
