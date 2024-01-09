@@ -47,7 +47,6 @@
             <div class="d-flex flex-lg-row-fluid order-d-none order-lg-1 "
             id="backgroundLogin" style="background-image: url(assets/media/jobhunt/meeting-scene.png); background-size: 784px 671px; background-repeat: no-repeat; background-position: right; flex-shrink: 0; background-color: white;">
             <div class="d-flex flex-column flex-center py-7 py-lg-15 px-5 px-md-15 justify-content-end">
-                    {{-- <img alt="" src="assets/media/jobhunt/meeting-scene.png" class="d-lg-block d-none w-100" /> --}}
 
                     <h1 class="d-none d-lg-block text-white fs-2qx fw-bolder text-center mb-7"></h1>
                     <div class="d-none d-lg-block text-white fs-base text-center"></div>
