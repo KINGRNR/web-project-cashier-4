@@ -1,5 +1,5 @@
 <script>
-import ApexCharts from 'apexcharts'
+    import ApexCharts from 'apexcharts'
 </script>
 <script type="text/javascript">
     $(() => {
@@ -14,42 +14,33 @@ import ApexCharts from 'apexcharts'
 
     $(document).ready(function() {
         // Check if the user has visited the welcome page before
-        const hasVisitedWelcomePage = localStorage.getItem('hasVisitedWelcomePage');
-
+        const hasVisitedWelcomePage = sessionStorage.getItem('hasVisitedWelcomePage');
+        console.log(hasVisitedWelcomePage)
         // If the user hasn't visited the welcome page, show the popup
         if (!hasVisitedWelcomePage) {
-            // Load the welcome page as a full-size popup
-            // let timerInterval
-            // Swal.fire({
-            //     icon: 'warning',
-            //     title: "Welcome Admin!",
-            //     html: "Any actions you take on this portal have a <b>significant impact</b> on the sustainability of this website!! <br><br> This Warning Will Close In <span></span> Second ",
-            //     timer: 10000, // 5 seconds   
-            //     showConfirmButton: false,
-            //     timerProgressBar: true,
-            //     didOpen: () => {
-            //         Swal.showLoading()
-            //         const b = Swal.getHtmlContainer().querySelector('span')
-            //         timerInterval = setInterval(() => {
-            //             b.textContent = Swal.getTimerLeft()
-            //         }, 100)
-            //     },
-            //     willClose: () => {
-            //         clearInterval(timerInterval)
-            //     }
-            // }).then((result) => {
-            //     /* Read more about handling dismissals below */
-            //     if (result.dismiss === Swal.DismissReason.timer) {
-            //         console.log('I was closed by the timer')
-            //     }
-            // })
-            var blockfirstpage = '<div class="block">generate cache</div>';
-$('#pagecontainer').html(blockfirstpage);
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "warning",
+                title: "Generating Cache"
+            });
+            // var blockfirstpage = '<div class="block">generate cache</div>';
+            // $('#pagecontainer').html(blockfirstpage);
 
-            // Set the flag in local storage to indicate that the user has visited the welcome page
-            localStorage.setItem('hasVisitedWelcomePage', 'true');
+            // Set the flag in session storage to indicate that the user has visited the welcome page
+            sessionStorage.setItem('hasVisitedWelcomePage', 'true');
         }
     });
+
 
     function closeWelcomePopup() {
         $('#welcomePopup').remove();
@@ -72,8 +63,7 @@ $('#pagecontainer').html(blockfirstpage);
             },
             xaxis: {
                 type: 'month',
-                categories: ["january","February","March","April","May","June","July","August"
-                ]
+                categories: ["january", "February", "March", "April", "May", "June", "July", "August"]
             },
             tooltip: {
                 x: {
@@ -114,7 +104,7 @@ $('#pagecontainer').html(blockfirstpage);
                 colors: ['transparent']
             },
             xaxis: {
-                categories: ['January','February', 'March'],
+                categories: ['January', 'February', 'March'],
             },
             colors: ["#1B61AD", "#D0D5DD"],
             fill: {
