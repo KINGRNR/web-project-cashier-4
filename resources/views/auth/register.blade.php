@@ -1,7 +1,7 @@
 @extends('layouts.login')
 
 @section('content')
-    <form class="form w-100" novalidate="novalidate" id="kt_sign_up_form" method="POST" action="{{ route('register') }}">
+    <form class="form w-100" id="form-register" novalidate="novalidate" id="kt_sign_up_form" method="POST">
         @csrf
 
         <div class="mb-10 text-center">
@@ -88,11 +88,59 @@
         <div class="row mb-0">
             <div class="text-center">
                 <button type="submit" class="btn btn-lg btn-primary">
+                    submit
                     {{-- <span class="indicator-label">Register</span>
                     <span class="indicator-progress">Please wait... --}}
-                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                        {{-- <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span> --}}
                 </button>
             </div>
         </div>
     </form>
+    <script>
+            $('#form-register').on('submit', function submit(e) {
+        e.preventDefault();
+        $('#loading-spinner').css('display', '')
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        var formData = $(this).serialize();
+        $.ajax({
+            type: "POST",
+            url: "{{ route('register') }}",
+            data: formData,
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            success: function(res) {
+                window.location.href= '/login';
+            },
+            error: function(xhr, status, error) {
+                var message = xhr.responseJSON.message;
+                if (message) {
+                    // Menggabungkan pesan-pesan kesalahan menjadi satu pesan
+                    var errorMessage = Object.values(message).join('<br>');
+                    $('#loading-spinner').css('display', 'none')
+
+                    // Menampilkan pesan kesalahan dengan Swal
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        html: errorMessage,
+                    });
+                }
+            }
+
+        });
+    });
+    </script>
 @endsection

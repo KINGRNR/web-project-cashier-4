@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class RegisterController extends Controller
 {
@@ -52,7 +54,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'username' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -63,13 +65,41 @@ class RegisterController extends Controller
      *
      * @param  array  $data
      * @return \App\Models\User
+     * 
      */
-    protected function create(array $data)
+    public function register(Request $request)
     {
-        return User::create([
-            'username' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        try {
+            // print_r($request->all());
+            $validator = $this->validator($request->all(), 'register');
+            if ($validator->fails()) {
+                return response()->json(['message' => $validator->errors()], 400);
+            }
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'users_role_id' => 'BfiwyVUDrXOpmStr'
+            ]);
+            if ($user) {
+                return view('auth.login')->with([
+                    'success' => true,
+                    'message' => 'Successfully registered user.'
+                ]);
+            }
+            else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'User registration failed.'
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            $statusCode = method_exists($e, 'getStatusCode') ? $e->getStatusCode() : 500;
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred during user registration.'
+            ], $statusCode);
+        }
     }
 }
