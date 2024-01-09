@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginWithGooglecontroller;
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\MainController;
@@ -33,6 +34,7 @@ Route::controller(LoginWithGooglecontroller::class)->group(function () {
     Route::get('authorized/google', 'redirectToGoogle')->name('auth.google');
     Route::get('authorized/google/callback', 'handleGoogleCallback');
 });
+Route::post('/register', [RegisterController::class, 'register'])->name('v_register');
 
 // Route::get('/', function () {
 
