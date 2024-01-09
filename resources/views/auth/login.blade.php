@@ -9,8 +9,16 @@
                 <a href="{{ route('register') }}" class="link-primary fw-bolder">Create an Account</a>
             </div>
         </div> --}}
-        <div class="fv-row mb-10">
-            <img src="assets/media/jobhunt/logoipsum-287.svg" class="w-48 h-16 mr-4" alt="Logo Ipsum Logo">
+        <div class="text-center mb-10">
+            <!--begin::Title-->
+            <h1 class="text-dark mb-3">Sign In to Portal Cashier</h1>
+            <!--end::Title-->
+            <!--begin::Link-->
+            <div class="text-gray-400 fw-bold fs-4">New Here?
+                <a href="/register" class="link-primary fw-bolder">Create an
+                    Account</a>
+            </div>
+            <!--end::Link-->
         </div>
         <div class="fv-row mb-10">
             <label class="form-label fs-14 fw-bolder text-dark">Email</label>
@@ -32,11 +40,14 @@
             <div class="position-relative">
                 <input
                     class="form-control @error('password') is-invalid @enderror form-control-lg fs-14 form-control-solid border border-gray-200 text-gray-900"
-                    id="password" type="password" name="password" value="KaliBolu" placeholder="Enter your password" required
-                    autocomplete="current-password">
-                    <button type="button" onclick="togglePassword()" class="btn-visible btn position-absolute shadow-none flex-center" style="top: 50%; right: 0; transform: translateY(-50%); color: #808080; display: flex;" fdprocessedid="mwa89f">
-                        <i class="far fa-eye"></i>
-                    </button>
+                    id="password" type="password" name="password" value="KaliBolu" placeholder="Enter your password"
+                    required autocomplete="current-password">
+                <button type="button" onclick="togglePassword()"
+                    class="btn-visible btn position-absolute shadow-none flex-center"
+                    style="top: 50%; right: 0; transform: translateY(-50%); color: #808080; display: flex;"
+                    fdprocessedid="mwa89f">
+                    <i class="far fa-eye"></i>
+                </button>
             </div>
             @error('password')
                 <span class="invalid-feedback" role="alert">
@@ -44,7 +55,7 @@
                 </span>
             @enderror
         </div>
-        
+
         <div class="fv-row mb-10">
             <div class="d-flex flex-stack mb-2">
                 {{-- <label class="form-label fw-bolder text-dark fs-14 mb-0">Password</label> --}}
