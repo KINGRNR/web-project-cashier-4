@@ -56,8 +56,13 @@ Route::post('/main/getPage', [MainController::class, 'getPage']);
 
 Auth::routes();
 Route::middleware([loginCheck::class])->group(function () {
-
+    Route::controller(MainController::class)->group(function () {
+        foreach (['table', 'createmenu'] as $key => $value) {
+            Route::post('/menu/' . $value, $value);
+        }
+    });
     // Route::get('/dashboard', [MainController::class, 'index'])->name('dashboard');
+    Route::get('/getSidebar', [MainController::class, 'getSidebar']);
 
     Route::get('examples', [ExampleController::class, 'index'])->name('example.index');    // Route::get('companyjob', [ManageCompanyController::class, 'jobIndex'])->name('managecompany.jobIndex');
     // Route::get('job', [::class, 'index'])->name('managejob.index');
@@ -77,16 +82,6 @@ Route::middleware([loginCheck::class])->group(function () {
     Route::controller(ConfigurationController::class)->group(function () {
         foreach (['getConfig', 'save', 'uploadFile', 'deleteFile'] as $key => $value) {
             Route::post('/config/' . $value, $value);
-        }
-    });
-    Route::controller(ProfileController::class)->group(function () {
-        foreach (['show', 'update', 'changePassword'] as $key => $value) {
-            Route::post('/profile/' . $value, $value);
-        }
-    });
-    Route::controller(NotificationController::class)->group(function () {
-        foreach (['read'] as $key => $value) {
-            Route::post('/notification/' . $value, $value);
         }
     });
     Route::get('/{menu}', [MainController::class, 'index'])->where('menu', '([A-Za-z0-9\-\/]+)');
