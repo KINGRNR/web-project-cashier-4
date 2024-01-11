@@ -68,16 +68,57 @@ var quick = {
 
     blockPage: function () {
         const loadingDiv = $(
-            '<div class="loading loading-spinner-overlay" id="loading-spinner"><div class="loading-spinner"></div><p class="loading-text">Loading </p></div>'
+            `<div class="loading loading-spinner-overlay" id="loading-spinner"><button class="btn btn-primary" type="button" disabled>
+            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+            <span role="status">Loading...</span>
+          </button></div>`
         );
-        loadingDiv.hide().appendTo("#pagecontainer").fadeIn();
+        loadingDiv.hide().appendTo("#pagecontainer").fadeIn(100);
     },
 
     unblockPage: function (data) {
         $("#pagecontainer").find(".loading").fadeOut();
         removeSkeleton();
-    }
+    },
 
+    toastNotif: function(data) {
+        data = $.extend ( 
+            true, 
+            {
+                title: 'error!',
+                text: null,
+                icon: "error",
+                timer: 3500,
+                position: "top-end",
+                showConfirmButton: false,
+                timerProgressBar: true,
+                callback: function () {},
+            },
+            data
+        )
+        const Toast = Swal.mixin({
+            toast: true,
+            position: data.position,
+            showConfirmButton: data.showConfirmButton,
+            timer: data.timer,
+            timerProgressBar: data.timerProgressBar,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            },
+            didClose: (toast) => {
+                data.callback(toast)
+            }
+        })
+        Toast.fire({
+            title: data.title,
+            text: data.text,
+            icon: data.icon,
+        })
+    },
+    reload: function(param){
+        $("[data-code='" + param + "']").trigger('click');
+    }
 };
 
 

@@ -1,5 +1,6 @@
 <div class="row g-5 g-xl-8">
     <div class="col-xl-4">
+        <h1>dashboard toko</h1>
         <!--begin::Statistics Widget 5-->
         <a href="#" class="card bg-danger hoverable card-xl-stretch mb-xl-8">
             <!--begin::Body-->
@@ -2329,4 +2330,4 @@
     </div>
     <!--end::Tables Widget 10-->
 </div>
-    @include('dashboard.javascript')
+    @include('toko.dashboard.javascript')
