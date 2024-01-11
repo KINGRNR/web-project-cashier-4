@@ -15,8 +15,8 @@
 		<meta property="og:title" content="Metronic - Bootstrap 5 HTML, VueJS, React, Angular &amp; Laravel Admin Dashboard Theme" />
 		<meta property="og:url" content="https://keenthemes.com/metronic" />
 		<meta property="og:site_name" content="Keenthemes | Metronic" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+		<meta name="csrf-token" content="{{ csrf_token() }}">
+		<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <!--begin::Javascript-->
 	<script
 	src="https://code.jquery.com/jquery-3.7.1.js"
@@ -66,12 +66,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            /* background-color: rgba(0, 0, 0, 0.5); */
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            /* Ubah z-index sesuai kebutuhan */
         }
 
         .loading-spinner {
@@ -241,8 +240,9 @@
 				<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
 					<!--begin::Header-->
 					@include('layouts.navbar')
+					
 					<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-						<!--begin::Container-->
+						
 						<div class="container-xxl" id="kt_content_container">
 							@include('layouts.content')
 
@@ -2354,76 +2354,36 @@
 	
 		<script type="text/javascript">
 			APP_URL = "{{ getenv('APP_URL') }}/";
-			API_URL = "{{ getenv('API_URL') }}/";
-			console.log("tes")
-	
+			API_URL = "{{ getenv('API_URL') }}/";	
+
 			$(() => {
-				handleURLChange();
-				window.addEventListener('popstate', function(event) {
-					handleURLChange();
-				}); 
-				$.ajaxSetup({
+    loadSidebar()
+        .then(() => {
+            handleURLChange();
+        })
+        .catch((error) => {
+            console.error("Error loading sidebar:", error);
+        });
+		$.ajaxSetup({
 					headers: {
 						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 					}
 				});
-			});
-	
+});
+
+		
+			window.addEventListener('popstate', function(event) {
+					handleURLChange();
+				}); 
 			function handleURLChange() {
-				// const currentURL = window.location.href;
-				// let lastMenuId = localStorage.getItem('menuId');
 				let url = $(location).attr('href');
 				var lastEndpoint = url.split('/').reverse()[0];
-	
-				$(`[data-code="${lastEndpoint}"]`).trigger('click');
-	
-				// if (getLastUrl() === 'dashboard') {
-				//     $('[data-con="ozqopvu1arkmk3gv"]').trigger('click');
-				// } else {
-				//     $(`[data-con="${lastMenuId}"]`).trigger('click');
-				// }
+				console.log(lastEndpoint)
+					$(`[data-code="${lastEndpoint}"]`).trigger('click');
 			}
-	
-	
 	
 			let stateData = null;
 	
-			// function getLastUrl() {
-			//     let url = $(location).attr('href');
-			//     return url.split('/').reverse()[0];
-			// }
-	
-			//     function loadPage(element) {
-			//         // $("#pagecontainer").empty();
-			//         let menuId = $(element).data('con');
-			//         let CSRF_NAME = 'csrf_cookie_name';
-			//         $.ajax({
-			//             url: APP_URL + "main/getPage",
-			//             data: {
-			//                 _token: '{{ csrf_token() }}',
-			//                 menu_id: menuId
-			//             },
-			//             type: "POST",
-			//             success: function(pages) {
-			//                 $(".menu-link").removeClass("active");
-			//                 $(`.menu-link[data-con="${menuId}"]`).addClass("active");
-			//                 $('#page_breadcrumb').html(atob(pages.breadcrumb));
-			//                 $('#titleContent').html('').html(`
-	// <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1 parentTitle">${pages.menu_title}</h1>
-	
-	//   `)
-			//                 console.log(pages.url_path);
-			//                 window.history.pushState(stateData, "", pages.url_path);
-			//                 $("#pagecontainer").html(atob(pages.view));
-			//                 localStorage.setItem('menuId', menuId);
-			//                 blockPage();
-	
-			//             }
-			//         });
-			//     }
-			//PHP BACKEND
-	
-			//API
 			function loadPage(element) {
 				// blockPage()
 				// $("#pagecontainer").empty();
@@ -2448,6 +2408,7 @@
 						$("#pagecontainer").html(atob(pages.view));
 						localStorage.setItem('menuId', menuId);
 						quick.blockPage()
+						$(`[data-con="${menuId}"]`).addClass('active');
 					},
 				});
 	
@@ -2457,7 +2418,7 @@
 				$('.menu-skeleton').hide();
 				$('.menu-real').fadeIn();
 			}
-	
+			
 			// function blockPage() {
 			//     const loadingDiv = $(
 			//         '<div class="loading loading-spinner-overlay" id="loading-spinner"><div class="loading-spinner"></div><p class="loading-text">Loading Data</p></div>'
@@ -2488,7 +2449,8 @@
 		<script src="assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
 		<!--end::Page Vendors Javascript-->
 		<!--begin::Page Custom Javascript(used by this page)-->
-	
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 		<script src="assets/js/custom/widgets.js"></script>
 		<script src="assets/js/custom/apps/chat/chat.js"></script>
 		<script src="assets/js/custom/modals/create-app.js"></script>
